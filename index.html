@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SleepSync EDU Advanced</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght=300;400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:'Poppins',sans-serif;
+background:linear-gradient(to bottom right,#06142e,#081b3a,#000);
+color:white;
+overflow-x:hidden;
+}
+
+/* NAVBAR & COLLAPSIBLE HEADER */
+header{
+position:sticky;
+top:0;
+z-index:1000;
+background:#000000dd;
+backdrop-filter:blur(12px);
+padding:15px 6%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+border-bottom:1px solid rgba(255,255,255,0.1);
+}
+
+.logo{
+font-size:28px;
+font-weight:800;
+flex:1;
+}
+
+.logo span{
+color:#00d4ff;
+}
+
+.menu-toggle {
+display:none;
+flex-direction:column;
+gap:6px;
+background:none;
+border:none;
+cursor:pointer;
+z-index:1001;
+}
+
+.menu-toggle span {
+width:30px;
+height:3px;
+background-color:white;
+border-radius:2px;
+transition:0.3s;
+}
+
+nav{
+display:flex;
+gap:15px;
+flex:2;
+justify-content:flex-end;
+}
+
+nav button{
+flex:1;
+max-width:150px;
+padding:12px;
+border:none;
+border-radius:25px;
+background:#00d4ff;
+color:#000;
+font-weight:700;
+cursor:pointer;
+transition:0.3s;
+text-align:center;
+white-space:nowrap;
+}
+
+nav button:hover{
+transform:scale(1.05);
+background:#00ff88;
+}
+
+/* PAGES */
+.page{
+display:none;
+padding:60px 6%;
+min-height:100vh;
+animation:fade 0.4s ease;
+}
+
+.active{
+display:block;
+}
+
+@keyframes fade{
+from{opacity:0;transform:translateY(20px);}
+to{opacity:1;transform:translateY(0);}
+}
+
+/* TITLES & INTRO */
+.title{
+text-align:center;
+font-size:50px;
+margin-bottom:15px;
+font-weight:800;
+}
+
+.title span{
+color:#00d4ff;
+}
+
+.subtitle{
+text-align:center;
+max-width:900px;
+margin:auto;
+line-height:1.8;
+color:#d8d8d8;
+margin-bottom:40px;
+font-size:18px;
+}
+
+.intro-container {
+background:rgba(255,255,255,0.03);
+border:1px solid rgba(0,212,255,0.15);
+border-radius:25px;
+padding:35px;
+margin-bottom:50px;
+line-height:1.8;
+font-size:16px;
+color:#e0e0e0;
+}
+
+.intro-container h2 {
+color:#00d4ff;
+margin-bottom:15px;
+font-size:26px;
+}
+
+.section-heading {
+font-size:32px;
+margin:50px 0 10px 0;
+text-align:center;
+color:#00d4ff;
+padding-bottom:10px;
+}
+
+.section-subheading {
+text-align:center;
+color:#a0a0a0;
+font-size:16px;
+margin-bottom:30px;
+display:block;
+}
+
+/* GRID & COLLAPSIBLE SYSTEM CARDS */
+.grid{
+display:grid;
+grid-template-columns:1fr;
+gap:20px;
+margin-top:30px;
+align-items:center;
+}
+
+.card{
+background:rgba(255,255,255,0.04);
+border:1px solid rgba(255,255,255,0.08);
+border-radius:20px;
+padding:25px;
+backdrop-filter:blur(10px);
+transition:0.3s;
+cursor:pointer;
+}
+
+.card:hover{
+border-color:rgba(0,212,255,0.4);
+background:rgba(255,255,255,0.07);
+}
+
+.card-header-flex {
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:20px;
+}
+
+.card h2{
+font-size:22px;
+color:#00d4ff;
+display:flex;
+align-items:center;
+gap:12px;
+margin:0;
+}
+
+.expand-prompt {
+font-size:13px;
+color:#00ff88;
+background:rgba(0,255,136,0.1);
+padding:6px 14px;
+border-radius:15px;
+font-weight:600;
+transition:0.3s;
+text-align:right;
+}
+
+.system-details {
+max-height:0;
+overflow:hidden;
+transition:max-height 0.5s ease-out, margin-top 0.3s ease;
+font-size:15px;
+line-height:1.8;
+color:#e0e0e0;
+}
+
+.card.expanded .system-details {
+max-height:1500px;
+margin-top:20px;
+border-top:1px solid rgba(255,255,255,0.1);
+padding-top:15px;
+}
+
+.card.expanded .expand-prompt {
+background:rgba(0,212,255,0.2);
+color:#00d4ff;
+}
+
+.system-details p {
+margin-bottom:15px;
+}
+
+.system-details strong {
+color:#00ff88;
+display:inline-block;
+margin-top:5px;
+}
+
+/* SIMULATION MONITOR & EFFECTS TERMINAL */
+.monitor{
+background:rgba(255,255,255,0.04);
+padding:40px;
+border-radius:30px;
+margin-top:40px;
+border:1px solid rgba(255,255,255,0.08);
+}
+
+.monitor-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:25px;
+}
+
+.big{
+font-size:55px;
+font-weight:700;
+color:#00ff88;
+margin:15px 0;
+}
+
+.slider{
+width:100%;
+margin-top:20px;
+cursor:pointer;
+accent-color:#00d4ff;
+}
+
+.result-box{
+margin-top:40px;
+padding:30px;
+background:#ffffff05;
+border-radius:25px;
+border:1px solid rgba(255,255,255,0.05);
+}
+
+/* LIVE PHYSIOLOGICAL EFFECTS DISPLAY */
+.effects-terminal {
+margin-top:30px;
+background:rgba(0,0,0,0.4);
+border-left:4px solid #00d4ff;
+border-radius:12px;
+padding:20px;
+}
+
+.effects-terminal h3 {
+color:#00d4ff;
+font-size:20px;
+margin-bottom:15px;
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.effect-item {
+margin-bottom:12px;
+line-height:1.6;
+font-size:14px;
+border-bottom:1px solid rgba(255,255,255,0.04);
+padding-bottom:10px;
+}
+
+.effect-item:last-child {
+border-bottom:none;
+padding-bottom:0;
+}
+
+.effect-item span.system-tag {
+background:rgba(0,212,255,0.15);
+color:#00d4ff;
+padding:2px 8px;
+border-radius:6px;
+font-size:11px;
+font-weight:700;
+text-transform:uppercase;
+margin-right:8px;
+display:inline-block;
+}
+
+.effect-item span.severity-critical {
+background:rgba(255,77,77,0.2);
+color:#ff4d4d;
+}
+
+.effect-item span.severity-optimal {
+background:rgba(0,255,136,0.2);
+color:#00ff88;
+}
+
+/* DISCLAIMER WARNING */
+.medical-disclaimer {
+margin-top:35px;
+background:rgba(255,165,0,0.06);
+border:1px solid rgba(255,165,0,0.2);
+border-radius:15px;
+padding:20px;
+display:flex;
+align-items:center;
+gap:15px;
+font-size:13px;
+line-height:1.6;
+color:#e6a15c;
+}
+
+/* PROGRESS BARS */
+.bar{
+margin-top:25px;
+}
+
+.bar-title{
+display:flex;
+justify-content:space-between;
+margin-bottom:8px;
+font-weight:600;
+}
+
+.progress{
+height:18px;
+background:#111;
+border-radius:20px;
+overflow:hidden;
+border:1px solid rgba(255,255,255,0.1);
+}
+
+.fill{
+height:100%;
+transition:1s ease-out;
+}
+
+.blue{background:linear-gradient(90deg,#0072ff,#00d4ff);}
+.pink{background:linear-gradient(90deg,#ff007f,#ff4dd2);}
+.green{background:linear-gradient(90deg,#00b09b,#96c93d);}
+
+/* STAGES */
+.stage-container{
+display:flex;
+justify-content:center;
+gap:15px;
+flex-wrap:wrap;
+margin-top:35px;
+}
+
+.stage{
+padding:15px 25px;
+background:#ffffff10;
+border-radius:20px;
+font-weight:700;
+transition:0.4s;
+}
+
+.active-stage{
+background:#00d4ff;
+color:black;
+transform:scale(1.05);
+box-shadow:0 0 15px rgba(0,212,255,0.5);
+}
+
+/* QUIZ RESTRUCTURED STYLING */
+.quiz-levels-container {
+max-width:400px;
+margin:0 auto 40px auto;
+display:flex;
+flex-direction:column;
+gap:15px;
+}
+
+.quiz-levels-container button{
+width:100%;
+padding:18px;
+border:none;
+border-radius:15px;
+background:#00d4ff;
+color:black;
+font-weight:700;
+font-size:16px;
+cursor:pointer;
+transition:0.3s;
+text-align:center;
+box-shadow:0 4px 10px rgba(0,212,255,0.1);
+}
+
+.quiz-levels-container button:hover{
+background:#00ff88;
+transform:translateY(-2px);
+box-shadow:0 6px 15px rgba(0,255,136,0.2);
+}
+
+.quiz-box{
+max-width:800px;
+margin:auto;
+background:#ffffff05;
+padding:40px;
+border-radius:30px;
+border:1px solid rgba(255,255,255,0.08);
+display:none;
+}
+
+.quiz-score-banner {
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+padding-bottom:15px;
+border-bottom:1px solid rgba(255,255,255,0.1);
+font-weight:600;
+color:#00d4ff;
+}
+
+.quiz-question{
+font-size:22px;
+margin-bottom:25px;
+line-height:1.6;
+}
+
+.option{
+display:block;
+width:100%;
+margin-top:15px;
+padding:18px;
+border:none;
+border-radius:15px;
+background:rgba(255,255,255,0.08);
+color:white;
+text-align:left;
+font-size:16px;
+font-weight:600;
+cursor:pointer;
+transition:0.3s;
+border:1px solid rgba(255,255,255,0.1);
+}
+
+.option:hover{
+background:#00d4ff;
+color:black;
+transform:translateX(5px);
+}
+
+#feedback{
+margin-top:25px;
+line-height:1.8;
+font-size:18px;
+padding:15px;
+border-radius:10px;
+}
+
+.next-btn{
+margin-top:25px;
+padding:14px 25px;
+border:none;
+border-radius:15px;
+background:#00ff88;
+color:black;
+font-weight:700;
+cursor:pointer;
+display:none;
+}
+
+.quiz-back-btn {
+margin-top:25px;
+margin-right:15px;
+padding:14px 25px;
+border:1px solid rgba(255,255,255,0.3);
+border-radius:15px;
+background:transparent;
+color:white;
+font-weight:700;
+cursor:pointer;
+transition:0.3s;
+}
+
+.quiz-back-btn:hover {
+background:rgba(255,255,255,0.1);
+}
+
+/* RESPONSIVE DESIGN */
+@media(max-width:868px){
+header {
+flex-wrap:wrap;
+padding:15px 5%;
+}
+
+.menu-toggle {
+display:flex;
+}
+
+nav {
+display:none;
+width:100%;
+flex-direction:column;
+gap:10px;
+margin-top:15px;
+flex-basis:100%;
+}
+
+nav.show-menu {
+display:flex;
+}
+
+nav button {
+max-width:100%;
+width:100%;
+border-radius:12px;
+}
+
+.title{font-size:36px;}
+.big{font-size:40px;}
+.section-heading{font-size:26px;}
+.card-header-flex { flex-direction:column; align-items:flex-start; gap:10px;}
+.expand-prompt { text-align:center; width:100%; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="logo">
+Sleep<span>Sync EDU</span>
+</div>
+<button class="menu-toggle" id="menuToggle" onclick="toggleMenu()" aria-label="Toggle navigation">
+<span></span>
+<span></span>
+<span></span>
+</button>
+<nav id="navMenu">
+<button onclick="showPage('home')">Home</button>
+<button onclick="showPage('simulation')">Simulation</button>
+<button onclick="showPage('disorders')">Disorders</button>
+<button onclick="showPage('quiz')">Quiz</button>
+</nav>
+</header>
+
+<!-- HOME (CONSOLIDATED MAIN DATA & SYSTEMS) -->
+<section id="home" class="page active">
+<h1 class="title">Sleep<span>Sync EDU</span></h1>
+<p class="subtitle">
+An advanced interactive anatomy map and physiological engine analyzing how sleep cycles, homeostasis, and neural recovery regulate vital body systems.
+</p>
+
+<!-- PHYSIOLOGICAL INTRODUCTION SECTION -->
+<div class="intro-container">
+<h2>How Sleep Affects Overall Body Function</h2>
+<p>
+Sleep is a highly dynamic, coordinated physiological status state rather than a simple turning off of consciousness. It serves as the primary window for systemic cellular rebuilding, energy reallocation, and neural homeostatic balancing. During restorative sleep, the body transitions away from resource-depleting alertness into an active recovery arrangement. 
+</p>
+<p style="margin-top:12px;">
+This shift optimizes endocrine rhythms, drops peripheral vascular load, stimulates tissue healing, resets blood sugar sensitivity, and switches on structural immune networks. Failing to maintain adequate architecture across light, deep NREM, and REM cycles causes a multi-system cascade of functional failures—degrading cognitive capacity, hardening blood vessel paths, causing metabolic resistance, and breaking down cellular defense barriers.
+</p>
+</div>
+
+<h2 class="section-heading">Anatomy & Physiology Map</h2>
+<span class="section-subheading">Select a biological framework below to inspect how sleep alters functional mechanics, system vulnerabilities, and long-term pathologies.</span>
+
+<div class="grid">
+<!-- NERVOUS SYSTEM -->
+<div class="card" onclick="toggleCard(this)">
+<div class="card-header-flex">
+<h2>🧠 Nervous System</h2>
+<span class="expand-prompt">View Details</span>
+</div>
+<div class="system-details">
+<p><strong>Impact on Normal Functions:</strong> Sleep shifts the central nervous system into structural consolidation mode. During slow-wave deep sleep, astrocytes shrink to widen the brain's interstitial pathways by 60%, letting the glymphatic system flush metabolic waste products like toxic beta-amyloid and tau proteins. During REM sleep, the brain manages synaptic plasticity—replaying structural experiences to anchor learning while pruning weak neural connections to refresh computational performance thresholds.</p>
+<p><strong>Causes of Systemic Failure:</strong> Blue light frequencies hitting retinal cells disrupt the suprachiasmatic nucleus (SCN), freezing the secretion of natural melatonin from the pineal gland. Chronic emotional strain spikes baseline cortisol, trapping cortical paths in high-frequency alert states.</p>
+<p><strong>Signs of Deprivation:</strong> Sluggish cognitive processing speeds, structural short-term memory blockages, heightened sensitivity to external sound/light, and emotional volatility.</p>
+<p><strong>Pathological Outcomes from Chronic Lack of Sleep:</strong> Permanent cortical tissue density loss, accelerated tracking toward Alzheimer's disease and dementia, and long-term clinical mood disorders.</p>
+<p><strong>Prevention Protocols:</strong> Enforce total blue-light blackouts 60 minutes prior to intended rest phases, and anchor rest routines to consistent daily time slots.</p>
+</div>
+</div>
+
+<!-- CARDIOVASCULAR SYSTEM -->
+<div class="card" onclick="toggleCard(this)">
+<div class="card-header-flex">
+<h2>❤️ Cardiovascular System</h2>
+<span class="expand-prompt">View Details</span>
+</div>
+<div class="system-details">
+<p><strong>Impact on Normal Functions:</strong> Entering non-REM sleep dials down the sympathetic nervous system and activates parasympathetic loops, bringing on nocturnal "dipping." Systemic blood pressure drops by 10-20% and heart rate stabilizes at low rests, giving blood vessels and cardiac muscle walls an essential break from high pumping pressure.</p>
+<p><strong>Causes of Systemic Failure:</strong> Repeated micro-arousals keep the Sympathetic-Adrenal-Medullary (SAM) axis firing all night, pouring adrenaline and noradrenaline into the bloodstream and preventing blood vessels from entering their relaxed, dipping state.</p>
+<p><strong>Signs of Deprivation:</strong> Elevated morning blood pressure spikes, unexplained resting tachycardia, and high-frequency heart palpitations during daytime tasks.</p>
+<p><strong>Pathological Outcomes from Chronic Lack of Sleep:</strong> Structural stiffening of arterial tissue (atherosclerosis), persistent chronic clinical hypertension, left ventricular enlargement, and significantly higher risks for strokes and myocardial infarctions.</p>
+<p><strong>Prevention Protocols:</strong> Set a strict curfew on vascular stimulants (caffeine and nicotine) 6 hours before bedtime, and maintain routine daytime exercise to balance resting heart profiles.</p>
+</div>
+</div>
+
+<!-- IMMUNE SYSTEM -->
+<div class="card" onclick="toggleCard(this)">
+<div class="card-header-flex">
+<h2>🛡 Immune System</h2>
+<span class="expand-prompt">View Details</span>
+</div>
+<div class="system-details">
+<p><strong>Impact on Normal Functions:</strong> Sleep works as the main clock for cellular immunity. During deep sleep, the body steps up the production and release of pro-inflammatory cytokines needed to respond to active threats. At the same time, sleep enhances the stickiness of T-cell integrin molecules, boosting their ability to latch onto and destroy virus-infected host cells.</p>
+<p><strong>Causes of Systemic Failure:</strong> Short sleep windows interrupt gene transcription processes, lowering raw white blood cell production and weakening adaptive immune memory lines.</p>
+<p><strong>Signs of Deprivation:</strong> Repeated catchings of minor respiratory illnesses, systemic low-grade muscle inflammation, and noticeably slower healing of minor surface cuts or bruises.</p>
+<p><strong>Pathological Outcomes from Chronic Lack of Sleep:</strong> Deep clinical immunodeficiency, drastically lowered Natural Killer (NK) cell profiles, and a high susceptibility to chronic systemic inflammatory conditions.</p>
+<p><strong>Prevention Protocols:</strong> Block out dedicated 7–9 hour sleep windows to let cytokine signaling complete its full path, and avoid digesting inflammatory foods near bedtimes.</p>
+</div>
+</div>
+
+<!-- MUSCULAR & SKELETAL SYSTEM -->
+<div class="card" onclick="toggleCard(this)">
+<div class="card-header-flex">
+<h2>💪 Muscular & Skeletal System</h2>
+<span class="expand-prompt">View Details</span>
+</div>
+<div class="system-details">
+<p><strong>Impact on Normal Functions:</strong> Transitioning into slow-wave NREM sleep prompts the anterior pituitary gland to release a major pulse of Human Growth Hormone (HGH). This anabolic surge shifts cell behavior to draw in amino acids quickly, driving muscle tissue hypertrophy, ligament restoration, and bone matrix renewal.</p>
+<p><strong>Causes of Systemic Failure:</strong> Intensive manual work or exercise training combined with brief rest periods prevents hormone recovery, locking muscle systems into a high-cortisol, breakdown-prone state.</p>
+<p><strong>Signs of Deprivation:</strong> Long-lasting muscle soreness (DOMS) that doesn't clear, persistent joint stiffness, localized muscular weakness, and poor workout recovery speeds.</p>
+<p><strong>Pathological Outcomes from Chronic Lack of Sleep:</strong> Progressive breakdown of lean muscle mass (catabolism), unmitigated damage accumulation in tendons, and long-term loss of structural bone density.</p>
+<p><strong>Prevention Protocols:</strong> Balance physical workloads with longer sleep blocks, and supply proper structural protein blocks prior to entering evening rest windows.</p>
+</div>
+</div>
+
+<!-- ENDOCRINE SYSTEM -->
+<div class="card" onclick="toggleCard(this)">
+<div class="card-header-flex">
+<h2>🧪 Endocrine System</h2>
+<span class="expand-prompt">View Details</span>
+</div>
+<div class="system-details">
+<p><strong>Impact on Normal Functions:</strong> Sleep orchestrates the homeostatic schedule for vital endocrine players. It controls leptin (the fullness hormone) and ghrelin (the hunger hormone) to manage energy balance. It also keeps cortisol low around midnight before staging a sharp morning rise to provide clear waking alertness.</p>
+<p><strong>Causes of Systemic Failure:</strong> Shift-work patterns or waking up mid-cycle confuse the central biological clock, causing hormone production signals to misfire throughout the day.</p>
+<p><strong>Signs of Deprivation:</strong> Intense evening sugar cravings, continuous hunger cues despite eating, afternoon energy crashes, and sudden temperature variations.</p>
+<p><strong>Pathological Outcomes from Chronic Lack of Sleep:</strong> Widespread insulin resistance, chemical imbalances in reproductive hormones (testosterone/estrogen reduction), and metabolic syndrome development.</p>
+<p><strong>Prevention Protocols:</strong> Stop eating simple carbohydrates 3 hours before sleeping to avoid insulin spikes that disrupt natural nocturnal hormone secretion paths.</p>
+</div>
+</div>
+
+<!-- GASTROINTESTINAL & METABOLIC SYSTEM (EMOJI FIXED TO 🫃) -->
+<div class="card" onclick="toggleCard(this)">
+<div class="card-header-flex">
+<h2>🫃 Gastrointestinal & Metabolic System</h2>
+<span class="expand-prompt">View Details</span>
+</div>
+<div class="system-details">
+<p><strong>Impact on Normal Functions:</strong> During sleep, baseline gut movement eases, giving way to the Migrating Motor Complex (MMC) which clears undigested waste from the intestinal channel. Sleep also supports tight junction structures in the bowel wall and maintains a healthy, diverse microbiome environment.</p>
+<p><strong>Causes of Systemic Failure:</strong> Late-night eating forces blood flow back into heavy digestive work when the system is scheduled for structural repair, causing significant metabolic friction.</p>
+<p><strong>Signs of Deprivation:</strong> Severe stomach bloating, regular acid reflux episodes, irregular bowel patterns, and poor nutrient breakdown efficiency.</p>
+<p><strong>Pathological Outcomes from Chronic Lack of Sleep:</strong> Intestinal lining permeability (leaky gut syndrome), systemic irritation triggered by microbiome imbalances, and fatty liver buildup.</p>
+<p><strong>Prevention Protocols:</strong> Create an absolute fasting window 3 hours before bed to let the gastrointestinal system move smoothly into its nightly repair routine.</p>
+</div>
+</div>
+
+<!-- RESPIRATORY SYSTEM -->
+<div class="card" onclick="toggleCard(this)">
+<div class="card-header-flex">
+<h2>🫁 Respiratory System</h2>
+<span class="expand-prompt">View Details</span>
+</div>
+<div class="system-details">
+<p><strong>Impact on Normal Functions:</strong> Sleep introduces standard, natural alterations to breathing mechanics. Neuromuscular tone in the upper airway relaxes slightly, increasing physical airflow resistance, while the brainstem lowers its automatic sensitivity to carbon dioxide ($\text{CO}_2$) levels to establish smooth, steady nocturnal breathing patterns.</p>
+<p><strong>Causes of Systemic Failure:</strong> Excess soft tissue around the neck or narrow anatomical paths, combined with standard sleep muscle relaxation, can cause total airway collapse and crash blood oxygen counts.</p>
+<p><strong>Signs of Deprivation:</strong> Loud snoring patterns, sudden gasping awakenings during the night, waking up with an exceptionally dry throat, and morning frontal headaches.</p>
+<p><strong>Pathological Outcomes from Chronic Lack of Sleep:</strong> Intermittent hypoxia spikes that stress blood vessels, leading directly to pulmonary hypertension and severe right-sided heart strain.</p>
+<p><strong>Prevention Protocols:</strong> Adopt side-sleeping positions to prevent gravity from pulling tissues backward, keep body weight balanced, and avoid sedatives or alcohol near bedtime.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- SIMULATION -->
+<section id="simulation" class="page">
+<h1 class="title">Interactive Simulation</h1>
+<p class="subtitle">Manipulate homeostatic inputs to observe real-time physiological system adaptations, autonomic balances, and structural changes.</p>
+
+<div class="monitor">
+<div class="monitor-grid">
+<div class="card" style="cursor:default;">
+<h2>❤️ Heart Rate</h2>
+<div class="big" id="bpmText">72 BPM</div>
+<input type="range" min="50" max="120" value="72" class="slider" id="bpmSlider">
+<p>Adjust BPM to simulate autonomic stress or restorative parasympathetic states.</p>
+</div>
+
+<div class="card" style="cursor:default;">
+<h2>🌙 Sleep Duration</h2>
+<div class="big" id="sleepText">8 HRS</div>
+<input type="range" min="1" max="12" value="8" class="slider" id="sleepSlider">
+<p>Adjust total rest windows to alter systemic recovery timelines.</p>
+</div>
+</div>
+
+<div class="result-box">
+<h2>Real-Time System Analysis</h2>
+<p id="analysis" style="font-weight:600; font-size:18px; margin-bottom:15px;">Healthy sleep cycle detected.</p>
+
+<div class="bar">
+<div class="bar-title"><span>Glymphatic Brain Recovery</span><span id="brainValue">90%</span></div>
+<div class="progress"><div class="fill blue" id="brainBar" style="width:90%"></div></div>
+</div>
+
+<div class="bar">
+<div class="bar-title"><span>Sympathetic Stress Load</span><span id="stressValue">20%</span></div>
+<div class="progress"><div class="fill pink" id="stressBar" style="width:20%"></div></div>
+</div>
+
+<div class="bar">
+<div class="bar-title"><span>Immunological & Cellular Efficiency</span><span id="efficiencyValue">92%</span></div>
+<div class="progress"><div class="fill green" id="efficiencyBar" style="width:92%"></div></div>
+</div>
+
+<div class="stage-container">
+<div class="stage active-stage" id="rem">REM Cycle</div>
+<div class="stage" id="deep">Deep NREM</div>
+<div class="stage" id="light">Light NREM</div>
+<div class="stage" id="awake">Hyper-Arousal / Awake</div>
+</div>
+
+<!-- DYNAMIC EFFECTS AND WHAT IS AFFECTED SECTION -->
+<div class="effects-terminal">
+<h3>📊 Real-Time Physiological Effects & Affected Systems</h3>
+<div id="dynamicEffectsList"></div>
+</div>
+
+<!-- MEDICAL CONSULTATION ADVICE WARNING -->
+<div class="medical-disclaimer">
+<div style="font-size:24px;">⚠️</div>
+<div>
+<strong>Educational Notice & System Advisory:</strong> The physiological projections and health data profiles generated by this simulator are based on AI-assisted data models for instructional purposes. This utility does not provide clinical diagnostic frameworks. If somatic symptoms, cognitive exhaustion, or sleep abnormalities persist, immediate consultation with a professional healthcare practitioner or board-certified sleep specialist is strongly recommended.
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- DISORDERS (REVISED TO COVER COMPREHENSIVE LACK OF SLEEP DISORDERS) -->
+<section id="disorders" class="page">
+<h1 class="title">Sleep Disorders</h1>
+<p class="subtitle">Explore the clinical, biochemical, and structural breakdowns of all major conditions arising from acute, chronic, or circadian lack of sleep.</p>
+
+<div class="grid">
+<div class="card" style="cursor:default;">
+<h2>😴 Chronic Insomnia Disorder</h2>
+<div class="system-details" style="max-height:none; overflow:visible; margin-top:15px; border-top:1px solid rgba(255,255,255,0.1); padding-top:15px;">
+<p><strong>Causes & Mechanisms:</strong> Driven by permanent hyper-arousal of both the Hypothalamic-Pituitary-Adrenal (HPA) axis and the sympathetic nervous system, causing elevated nocturnal cortisol and ACTH levels that block normal sleep onset.</p>
+<p><strong>Systemic Symptoms:</strong> Extended sleep latency, persistent mid-night awakenings, early morning deficits, and continuous somatic tension.</p>
+<p><strong>Pathological Effects:</strong> Severe long-term cognitive decline, severe clinical mood disorders, altered immune profiles, and metabolic dysfunction.</p>
+<p><strong>Clinical Prevention:</strong> Implementation of Cognitive Behavioral Therapy for Insomnia (CBT-I), strict sleep stimulus control, and elimination of physiological triggers.</p>
+</div>
+</div>
+
+<div class="card" style="cursor:default;">
+<h2>😮‍💨 Obstructive Sleep Apnea (OSA)</h2>
+<div class="system-details" style="max-height:none; overflow:visible; margin-top:15px; border-top:1px solid rgba(255,255,255,0.1); padding-top:15px;">
+<p><strong>Causes & Mechanisms:</strong> Physical collapse of muscle tone in the upper airways during sleep, causing complete or partial airway obstructions. This produces severe hypoxia, drop-offs in blood-oxygen saturation, and micro-arousals that shatter sleep architecture.</p>
+<p><strong>Systemic Symptoms:</strong> Heavy snoring, gasping disruptions, morning xerostomia (dry mouth), and severe daytime somnolence.</p>
+<p><strong>Pathological Effects:</strong> Pulmonary hypertension, right-sided heart failure stress, metabolic syndrome, insulin resistance, and heightened stroke risk.</p>
+<p><strong>Clinical Prevention:</strong> Continuous Positive Airway Pressure (CPAP) therapies, positional lifestyle modifications, structural weight management, or corrective airway surgery.</p>
+</div>
+</div>
+
+<div class="card" style="cursor:default;">
+<h2>😟 Systemic Sleep Deprivation (Sleep Debt)</h2>
+<div class="system-details" style="max-height:none; overflow:visible; margin-top:15px; border-top:1px solid rgba(255,255,255,0.1); padding-top:15px;">
+<p><strong>Causes & Mechanisms:</strong> Volitional or environmental reduction in sleep duration below homeostatic baselines, leading to an accumulation of "sleep debt" and severe disruption of hormonal balance.</p>
+<p><strong>Systemic Symptoms:</strong> Uncontrollable microsleep episodes, hyper-phagia (increased hunger driven by low leptin and elevated ghrelin), and diminished executive control.</p>
+<p><strong>Pathological Effects:</strong> Profound reduction in immunological response, metabolic syndrome, insulin resistance, and comprehensive neurological performance decline.</p>
+<p><strong>Clinical Prevention:</strong> Maintaining 7-9 hours of nightly sleep, aligning schedules with internal circadian clocks, and avoiding shifts in routine.</p>
+</div>
+</div>
+
+<div class="card" style="cursor:default;">
+<h2>🏭 Shift Work Sleep Disorder (SWSD)</h2>
+<div class="system-details" style="max-height:none; overflow:visible; margin-top:15px; border-top:1px solid rgba(255,255,255,0.1); padding-top:15px;">
+<p><strong>Causes & Mechanisms:</strong> A structural mismatch between an individual's natural internal endogenous circadian pacemaker and the forced environmental light-dark cycles dictated by work shifts (e.g., night shifts or early morning rotations).</p>
+<p><strong>Systemic Symptoms:</strong> Severe insomnia when attempting to rest during daylight hours, extreme fatigue during operational night hours, and fragmented daytime sleep architecture.</p>
+<p><strong>Pathological Effects:</strong> Increased risk for gastrointestinal ulcers, severe metabolic dysregulation, higher cancer susceptibility rates due to suppressed melatonin processing, and elevated cardiovascular disease risks.</p>
+<p><strong>Clinical Prevention:</strong> Strategic timed light exposure, dark blackout curtains during daylight rest windows, and careful sleep scheduling parameters.</p>
+</div>
+</div>
+
+<div class="card" style="cursor:default;">
+<h2>✈️ Delayed Sleep Phase Syndrome (DSPS)</h2>
+<div class="system-details" style="max-height:none; overflow:visible; margin-top:15px; border-top:1px solid rgba(255,255,255,0.1); padding-top:15px;">
+<p><strong>Causes & Mechanisms:</strong> A circadian rhythm delay where an individual's internal master clock is shifted significantly past standard societal norms, delaying natural sleep-onset timings.</p>
+<p><strong>Systemic Symptoms:</strong> Inability to sleep before early morning hours (e.g., 2 AM to 6 AM), followed by profound, unmitigated difficulty waking up at standard morning times for school or career commitments.</p>
+<p><strong>Pathological Effects:</strong> Chronic sleep debt caused by forced early awakenings, severe daytime fatigue, executive brain dysfunction, and secondary clinical depression.</p>
+<p><strong>Clinical Prevention:</strong> Bright morning phototherapy immediately upon awakening, and strict micro-dose melatonin administrative timings in the early evening.</p>
+</div>
+</div>
+
+<div class="card" style="cursor:default;">
+<h2>🔄 Non-24-Hour Sleep-Wake Disorder</h2>
+<div class="system-details" style="max-height:none; overflow:visible; margin-top:15px; border-top:1px solid rgba(255,255,255,0.1); padding-top:15px;">
+<p><strong>Causes & Mechanisms:</strong> Occurs when the body's internal circadian clock runs on a cycle longer than 24 hours and fails to lock onto environmental light-dark patterns. This condition is highly prevalent in individuals who are completely blind and lack light-input tracking.</p>
+<p><strong>Systemic Symptoms:</strong> Sleep and wake times gradually shift later every day, causing cyclical patterns of severe nighttime insomnia and overwhelming daytime exhaustion.</p>
+<p><strong>Pathological Effects:</strong> Long-term neurological stress, systemic fatigue, down-regulated immune systems, and severe difficulties maintaining standard daytime schedules.</p>
+<p><strong>Clinical Prevention:</strong> Targeted administrative schedules using melatonin receptor agonists (such as Tasimelteon) to manually lock down internal master rhythms.</p>
+</div>
+</div>
+
+<div class="card" style="cursor:default;">
+<h2>☣️ Fatal Familial Insomnia (FFI)</h2>
+<div class="system-details" style="max-height:none; overflow:visible; margin-top:15px; border-top:1px solid rgba(255,255,255,0.1); padding-top:15px;">
+<p><strong>Causes & Mechanisms:</strong> An exceptionally rare, genetic neurodegenerative prion disease that causes structural folding mutations within the PRNP gene, leading to progressive, unchecked tissue damage within the thalamus.</p>
+<p><strong>Systemic Symptoms:</strong> Sudden, total loss of the ability to enter slow-wave deep sleep, severe autonomic system over-activation (uncontrolled sweating, tachycardia, hypertension), and quick muscle twitching (myoclonus).</p>
+<p><strong>Pathological Effects:</strong> Complete cognitive deterioration, hallucinations, rapid weight loss, physical wasting, and eventual systemic organ failure leading to death within months of onset.</p>
+<p><strong>Clinical Prevention:</strong> There are currently no cures or prevention protocols for this inherited genetic condition; clinical care focuses entirely on palliative symptom management.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz" class="page">
+<h1 class="title">Sleep Physiology Quiz</h1>
+<p class="subtitle" id="quizSubtitle">Select an academic difficulty level to start your assessment. Each level consists of 20 randomized questions.</p>
+
+<div class="quiz-levels-container" id="levelsMenu">
+<button onclick="startQuiz('easy')">Easy</button>
+<button onclick="startQuiz('moderate')">Moderate</button>
+<button onclick="startQuiz('hard')">Hard</button>
+</div>
+
+<div class="quiz-box" id="quizBox">
+<div class="quiz-score-banner">
+<span id="currentLevelTag">Difficulty: Easy</span>
+<span id="scoreText">Score: 0 / 0</span>
+</div>
+<div class="quiz-question" id="question">Loading dynamic item entry framework...</div>
+<div id="options"></div>
+<div id="feedback"></div>
+<div style="margin-top:25px; text-align:right;">
+<button class="quiz-back-btn" onclick="exitQuiz()">Exit Quiz</button>
+<button class="next-btn" id="nextBtn" onclick="nextQuestion()">Next Question</button>
+</div>
+</div>
+</section>
+
+<script>
+/* HOME PAGE CARD COLLAPSIBLE FUNCTION */
+function toggleCard(cardElement) {
+cardElement.classList.toggle('expanded');
+}
+
+/* MOBILE NAVBAR COLLAPSIBLE LOGIC */
+function toggleMenu() {
+const nav = document.getElementById('navMenu');
+nav.classList.toggle('show-menu');
+}
+
+/* PAGE DISPLAY CONTROLLER */
+function showPage(pageId){
+const pages = document.querySelectorAll('.page');
+pages.forEach(page => page.classList.remove('active'));
+
+document.getElementById(pageId).classList.add('active');
+document.getElementById('navMenu').classList.remove('show-menu');
+if(pageId === 'quiz') { exitQuiz(); }
+window.scrollTo(0,0);
+}
+
+/* SIMULATION ENGINE WITH REAL-TIME EFFECTS & SYSTEMS LIST */
+const bpmSlider = document.getElementById('bpmSlider');
+const sleepSlider = document.getElementById('sleepSlider');
+const dynamicEffectsList = document.getElementById('dynamicEffectsList');
+
+function updateSimulation(){
+const bpm = parseInt(bpmSlider.value);
+const sleep = parseInt(sleepSlider.value);
+
+document.getElementById('bpmText').innerText = bpm + ' BPM';
+document.getElementById('sleepText').innerText = sleep + ' HRS';
+
+let brain = 90;
+let stress = 20;
+let efficiency = 92;
+let analysis = 'Healthy sleep cycle detected.';
+let effectsHTML = '';
+
+if(sleep < 5){
+brain = 30;
+stress = 85;
+efficiency = 35;
+analysis = '⚠ Critical Homeostatic Crisis Detected!';
+activateStage('awake');
+
+effectsHTML += `
+<div class="effect-item"><span class="system-tag severity-critical">Nervous System</span><strong>Glymphatic Failure:</strong> Expansion of interstitial space drops, trapping toxic beta-amyloid/tau proteins within cognitive centers.</div>
+<div class="effect-item"><span class="system-tag severity-critical">Immune System</span><strong>Cytokine Suppression:</strong> Sudden drop-off in systemic cytokine transcription occurs, cutting virus-fighting T-cell matching by half.</div>
+<div class="effect-item"><span class="system-tag severity-critical">Endocrine System</span><strong>Hormonal Inversion:</strong> Leptin production decreases and Ghrelin surges, sparking intense calorie cravings while keeping evening Cortisol elevated.</div>
+<div class="effect-item"><span class="system-tag severity-critical">Muscular System</span><strong>Tissue Catabolism:</strong> Human Growth Hormone (HGH) release fails completely, halting muscle protein synthesis and leaving fibers unrecovered.</div>
+`;
+}
+else if(sleep < 7){
+brain = 65;
+stress = 55;
+efficiency = 65;
+analysis = '⚠ Sub-optimal sleep window detected.';
+activateStage('light');
+
+effectsHTML += `
+<div class="effect-item"><span class="system-tag">Nervous System</span><strong>Reduced Synaptic Pruning:</strong> Incomplete REM phases result in morning brain-fog and slower logical processing speeds.</div>
+<div class="effect-item"><span class="system-tag">Gastrointestinal</span><strong>Microbiome Disruption:</strong> Shortened recovery times increase physical gut stress signaling, lowering general digestive efficiency.</div>
+<div class="effect-item"><span class="system-tag">Endocrine System</span><strong>Insulin Desensitization:</strong> Glucose clearance mechanisms operate poorly, raising systemic sugar spikes after morning food intake.</div>
+`;
+}
+else{
+brain = 95;
+stress = 15;
+efficiency = 96;
+analysis = '✅ Optimal homeostatic sleep parameters achieved.';
+if(bpm > 90) {
+activateStage('light');
+} else {
+activateStage('deep');
+}
+
+effectsHTML += `
+<div class="effect-item"><span class="system-tag severity-optimal">Nervous System</span><strong>Complete Glymphatic Clear:</strong> CSF thoroughly cleans cortical metabolic pathways, preparing mental spaces for fresh information.</div>
+<div class="effect-item"><span class="system-tag severity-optimal">Muscular System</span><strong>Anabolic Hypertrophy:</strong> A sustained release of HGH successfully repairs muscular damage and microtears.</div>
+<div class="effect-item"><span class="system-tag severity-optimal">Immune System</span><strong>Adaptive Priming:</strong> T-cell integrin adhesion functions reach maximum capability, optimizing bacterial defense levels.</div>
+`;
+}
+
+if(bpm > 95){
+stress += 20;
+brain -= 10;
+analysis = '⚠ Autonomic Balance Overridden by Tachycardia!';
+effectsHTML += `
+<div class="effect-item"><span class="system-tag severity-critical">Cardiovascular System</span><strong>Hemodynamic Failure:</strong> High heart rate cancels out essential nocturnal vascular dipping, stressing delicate endothelial arterial walls.</div>
+<div class="effect-item"><span class="system-tag severity-critical">Respiratory System</span><strong>Hyperventilation Risks:</strong> Elevated $\text{CO}_2$ sensitivity shifts normal sleeping respiratory rhythms into high-stress cycles.</div>
+`;
+} else if(bpm < 60) {
+stress -= 5;
+effectsHTML += `
+<div class="effect-item"><span class="system-tag severity-optimal">Cardiovascular System</span><strong>Vascular Dipping Active:</strong> Parasympathetic dominance successfully reduces arterial workload, shielding vessels against hypertension.</div>
+`;
+}
+
+document.getElementById('brainBar').style.width = brain + '%';
+document.getElementById('stressBar').style.width = stress + '%';
+document.getElementById('efficiencyBar').style.width = efficiency + '%';
+
+document.getElementById('brainValue').innerText = brain + '%';
+document.getElementById('stressValue').innerText = stress + '%';
+document.getElementById('efficiencyValue').innerText = efficiency + '%';
+
+document.getElementById('analysis').innerText = analysis;
+dynamicEffectsList.innerHTML = effectsHTML;
+}
+
+function activateStage(id){
+const stages = ['rem','deep','light','awake'];
+stages.forEach(stage => document.getElementById(stage).classList.remove('active-stage'));
+document.getElementById(id).classList.add('active-stage');
+}
+
+bpmSlider.addEventListener('input', updateSimulation);
+sleepSlider.addEventListener('input', updateSimulation);
+updateSimulation();
+
+
+/* EXTENSIVE 60-QUESTION QUIZ MATRIX BANK (20 Questions Per Level) */
+const quizData = {
+easy: [
+{q:"Which hormone is commonly known as the sleep hormone, secreted by the pineal gland?", o:["Cortisol","Insulin","Melatonin","Thyroxine"], a:"Melatonin", e:"Melatonin is produced by the pineal gland in response to darkness and helps regulate sleep-wake cycles."},
+{q:"What does REM stand for in sleep science?", o:["Rapid Eye Movement","Real Energy Monitoring","Reflex Electron Mechanism","Radial Eye Modulation"], a:"Rapid Eye Movement", e:"REM stands for Rapid Eye Movement, the stage of sleep most associated with vivid dreaming."},
+{q:"What is the recommended average daily sleep duration for healthy adults?", o:["4 to 5 hours","7 to 9 hours","11 to 13 hours","Alternative naps only"], a:"7 to 9 hours", e:"Health organizations recommend 7 to 9 hours of sleep per night for optimal adult function."},
+{q:"Which device is standard for monitoring bio-electric brainwaves during sleep?", o:["Electroencephalogram (EEG)","Sphygmomanometer","Electrocardiogram (ECG)","Thermometer"], a:"Electroencephalogram (EEG)", e:"EEG monitors electrical activity in the brain, helping categorize different stages of sleep."},
+{q:"Which lifestyle compound found in coffee acts as an adenosine receptor blocker?", o:["Ethanol","Caffeine","Nicotine","Glucose"], a:"Caffeine", e:"Caffeine blocks adenosine receptors, preventing the compound from signaling sleep pressure to the brain."},
+{q:"True or False: The body temperature drops slightly during normal nighttime sleep.", o:["True","False","Only during exercise","Only during high fevers"], a:"True", e:"Circadian rhythms naturally lower core body temperature during the night to conserve energy."},
+{q:"Which organ is primarily responsible for keeping our central circadian master clock ticking?", o:["The Heart","The Liver","The Hypothalamus (SCN)","The Kidneys"], a:"The Hypothalamus (SCN)", a:"The Hypothalamus (SCN)", e:"The Suprachiasmatic Nucleus (SCN) in the hypothalamus acts as the primary master pacemaker for the body."},
+{q:"What primary physical symptom characterizes Obstructive Sleep Apnea?", o:["Loud Snoring & Breathing Pauses","Sleepwalking","Excessive blinking","Loss of hair"], a:"Loud Snoring & Breathing Pauses", e:"Obstructive sleep apnea causes airway blockages, triggering noticeable snoring and gasping episodes."},
+{q:"What is the main side effect of immediate sleep deprivation on the nervous system?", o:["Increased reaction speed","Daytime sleepiness and fatigue","Sharper long-term memory","Improved dynamic balance"], a:"Daytime sleepiness and fatigue", e:"Inadequate sleep causes residual daytime drowsiness, slowing down cognitive reflex responses."},
+{q:"Which hormone rises sharply in the morning to promote wakefulness?", o:["Melatonin","Cortisol","Leptin","Oxytocin"], a:"Cortisol", e:"Cortisol levels follow a circadian trend, peaking in the morning to increase alertness and energy mobilization."},
+{q:"What color range of artificial light from electronic screens is known to disrupt sleep patterns most?", o:["Red Light","Green Light","Blue Light","Infrared Light"], a:"Blue Light", e:"Blue wavelengths suppress melatonin production more intensely than other light wavelengths."},
+{q:"How does an environment with loud background noise affect general sleep quality?", o:["It induces deeper REM sleep","It causes frequent micro-arousals","It accelerates tissue repair","It lowers heart rate"], a:"It causes frequent micro-arousals", e:"Noise prompts sub-conscious safety checks and shifts the brain from deep back into lighter sleep stages."},
+{q:"What common term refers to a persistent difficulty initiating or maintaining sleep?", o:["Insomnia","Narcolepsy","Somnambulism","Bruxism"], a:"Insomnia", e:"Insomnia is defined as the chronic inability to fall asleep or stay asleep despite having adequate opportunity."},
+{q:"Which function is most likely impaired after an individual pulls an all-nighter?", o:["Muscle reflex memory","Short-term attention span","Digestion of simple lipids","Bony mineral absorption"], a:"Short-term attention span", e:"Sleep deprivation rapidly degrades executive attention, focus, and short-term working memory capacity."},
+{q:"Which age group requires the highest number of total sleep hours per day?", o:["Elderly adults","Teenagers","Newborn Infants","Young adults"], a:"Newborn Infants", e:"Infants need 14 to 17 hours of daily sleep to support rapid neurological growth and cellular building loops."},
+{q:"What happens to regular skeletal muscle tone during healthy REM sleep stages?", o:["It doubles in rigidity","It becomes paralyzed (atonia)","It displays rapid voluntary spasms","It stays identical to wakefulness"], a:"It becomes paralyzed (atonia)", e:"The brain induces motor muscle paralysis during REM sleep to prevent us from physically acting out our dreams."},
+{q:"What simple behavioral routine helps sync a dysregulated circadian clock?", o:["Viewing bright morning sunlight","Drinking hot liquids at midnight","Sleeping in a hot room","Skipping daytime breakfast"], a:"Viewing bright morning sunlight", e:"Natural morning light resets the master clock through retinal pathways, optimizing daytime hormone timing."},
+{q:"Which basic macronutrient is a vital amino acid building block for melatonin tracking?", o:["Vitamin C","Tryptophan","Iron Ions","Saturated fat"], a:"Tryptophan", e:"Tryptophan is converted into serotonin, which is then biochemically synthesized into melatonin."},
+{q:"What is the common term used for walking around while remaining entirely asleep?", o:["Insomnia","Sleep Apnea","Sleepwalking","Restless Leg Syndrome"], a:"Sleepwalking", e:"Sleepwalking (somnambulism) occurs when a person arises and walks during deep NREM sleep stages."},
+{q:"Why is sleeping in a very hot bedroom generally counterproductive to deep rest?", o:["It blocks oxygen intake","It interferes with the body's natural cooling process","It creates muscle paralysis","It increases melatonin release"], a:"It interferes with the body's natural cooling process", e:"A cool room complements the circadian drop in core temperature, helping the brain stay in deep, restorative phases."}
+],
+moderate: [
+{q:"Which waste clearance pathway uses cerebrospinal fluid to clean brain tissue during deep sleep?", o:["The Lymphatic Network","The Glymphatic System","The Hepatic Portal Track","The Myocardial Plexus"], a:"The Glymphatic System", e:"The glymphatic system opens up clear channels during slow-wave sleep to clear neurotoxic proteins."},
+{q:"During which specific stage of sleep does the massive pulse of Human Growth Hormone (HGH) typically occur?", o:["Stage 1 Light Sleep","REM Sleep","Slow-Wave NREM Sleep","Waking transitional phase"], a:"Slow-Wave NREM Sleep", e:"Deep slow-wave NREM sleep triggers a significant release of growth hormone from the pituitary gland for tissue repair."},
+{q:"How does chronic sleep deprivation affect the endocrine appetite hormones leptin and ghrelin?", o:["Leptin increases, Ghrelin decreases","Leptin decreases, Ghrelin increases","Both drop to zero","Both increase identically"], a:"Leptin decreases, Ghrelin increases", e:"Sleep loss decreases leptin (satiety hormone) and elevates ghrelin (hunger hormone), driving caloric overeating."},
+{q:"What is the term for the normal 10% to 20% drop in blood pressure observed during proper nighttime sleep?", o:["Orthostatic Surge","Nocturnal Dipping","Systolic Tachycardia","Vascular Resistance Peak"], a:"Nocturnal Dipping", e:"Nocturnal dipping relieves the cardiovascular walls from constant fluid pressure, protecting delicate blood vessels."},
+{q:"Which set of immune molecules undergoes vital transcription changes and synthesis during deep rest stages?", o:["Hemoglobin cells","Pro-inflammatory cytokines","Amylase enzymes","Bile salts"], a:"Pro-inflammatory cytokines", e:"Sleep promotes the synthesis of cytokines, which coordinate immune defenses against infectious elements."},
+{q:"What is the primary neurochemical action of adenosine in the human brain throughout the day?", o:["It acts as a stimulant","It builds up homeostatic sleep pressure","It triggers instant panic attacks","It decreases carbohydrate digestion"], a:"It builds up homeostatic sleep pressure", e:"Adenosine accumulates every hour we remain awake, gradually driving up sleep pressure until we rest."},
+{q:"How does alcohol consumption near bedtime damage standard sleep architecture?", o:["It increases deep REM phases","It fragments sleep and suppresses REM sleep","It stabilizes blood pressure","It lowers morning cortisol completely"], a:"It fragments sleep and suppresses REM sleep", e:"Alcohol disrupts normal sleep patterns, causing micro-arousals and blocking REM cycles during the first half of the night."},
+{q:"Which neurological structure bridges visual inputs to regulate circadian schedules within the SCN?", o:["The Retinohypothalamic Tract","The Auditory Meatus","The Dorsal Vagus Nerve","The Spinal Cord Dorsal Horn"], a:"The Retinohypothalamic Tract", e:"The retinohypothalamic tract carries environmental light signals directly from the eyes to the master clock in the hypothalamus."},
+{q:"What is the primary hazard of chronic sleep debt regarding insulin activity?", o:["It causes hyper-active insulin binding","It induces insulin resistance and impairs glucose clearance","It blocks fat storage entirely","It decreases liver glycogen conversion"], a:"It induces insulin resistance and impairs glucose clearance", e:"Restricting sleep down-regulates tissue insulin sensitivity, causing blood sugar to spike and raising the risk for type 2 diabetes."},
+{q:"Which system is responsible for clearing out undigested food and bacteria from the gut during fasting and sleep?", o:["The Lymphatic Pump","The Migrating Motor Complex (MMC)","The Hepatic Filtration System","The Autonomic Reflex Arcs"], a:"The Migrating Motor Complex (MMC)", e:"The MMC works like an internal broom, moving waste through the GI tract during fasting and deep sleep."},
+{q:"What physiological change occurs to upper airway muscle tone during deep sleep?", o:["It tightens significantly","It relaxes, increasing structural resistance","It vanishes entirely via cell death","It vibrates at a fixed sound frequency"], a:"It relaxes, increasing structural resistance", e:"Neuromuscular tone relaxes slightly during sleep, narrowing the upper airway and increasing physical resistance to airflow."},
+{q:"How does long-term sleep loss damage the arterial walls over time?", o:["By thinning out cholesterol deposits","By preventing vascular dipping and driving endothelial stress","By lowering resting heart rate to dangerous lows","By over-hydrating muscle tissue cells"], a:"By preventing vascular dipping and driving endothelial stress", e:"Losing the nightly dip in blood pressure keeps mechanical stress on blood vessels high, promoting atherosclerosis."},
+{q:"Which brainwaves are most characteristic of Stage 3 deep NREM sleep?", o:["High-frequency Beta waves","Low-frequency Delta waves","Irregular Alpha waves","Sleep spindles only"], a:"Low-frequency Delta waves", e:"Delta waves represent high-voltage, slow-frequency electrical activity, indicating deep cortical synchronization."},
+{q:"What happens to the sensitivity of the brainstem to carbon dioxide ($\text{CO}_2$) during sleep?", o:["It drops slightly, allowing mild accumulation","It spikes to cause hyperventilation","It vanishes entirely, stopping breathing","It shifts regulation to the liver"], a:"It drops slightly, allowing mild accumulation", e:"The brainstem's chemical sensitivity to $\text{CO}_2$ drops slightly during sleep, allowing a mild, normal increase in arterial carbon dioxide levels."},
+{q:"How does an elevated resting heart rate (>95 BPM) during sleep impact health?", o:["It optimizes neural storage","It blocks vascular dipping and strains heart tissue","It lowers metabolic waste production","It shortens waking sleep latency"], a:"It blocks vascular dipping and strains heart tissue", e:"Tachycardia keeps the sympathetic tone active, overriding the parasympathetic loop needed for cardiovascular recovery."},
+{q:"Which specific cell type's ability to stick to targets is optimized by healthy sleep patterns?", o:["Red Blood Cells","T-Cell Integrins","Platelets","Bone Marrow Osteoblasts"], a:"T-Cell Integrins", e:"Sleep enhances the activation of T-cell integrins, boosting their ability to latch onto and destroy virus-infected cells."},
+{q:"What neurological event defines the boundary between waking and Stage 1 sleep?", o:["Total absence of blood flow","Disappearance of synchronized Alpha waves","A spike in high-frequency Beta bursts","Instant muscle paralysis across legs"], a:"Disappearance of synchronized Alpha waves", e:"As drowsiness transitions into Stage 1, alpha waves decline, giving way to slower, mixed-frequency theta activity."},
+{q:"Which organ stores glycogen and experiences metabolic strain when sleep loss shifts hormone levels?", o:["The Skin","The Pancreas","The Liver","The Spleen"], a:"The Liver", e:"Sleep deprivation alters insulin patterns, putting stress on liver pathways and increasing the risk for fatty liver buildup."},
+{q:"Why do short sleep windows lead to chronic low-grade muscle inflammation?", o:["By elevating systemic growth hormones","By triggering systemic cytokine imbalance and high cortisol","By draining all calcium out of bones","By locking joints into specific shapes"], a:"By triggering systemic cytokine imbalance and high cortisol", e:"Inadequate rest keeps cortisol high and misaligns pro-inflammatory cytokines, causing tissue irritation and delayed repair."},
+{q:"What is the primary action of the sympathetic nervous system during sleep deprivation?", o:["It shuts down completely","It remains chronically over-active","It alternates with kidney filtering","It shifts power to digestive muscles"], a:"It remains chronically over-active", e:"Sleep loss keeps the sympathetic nervous system turned up, raising baseline heart rate and blood pressure throughout the day."}
+],
+hard: [
+{q:"Which nucleus in the ventrolateral preoptic area (VLPO) uses specific neurotransmitters to turn off the brain's arousal systems?", o:["GABA and Galanin","Dopamine and Epinephrine","Acetylcholine and Serotonin","Glutamate and Histamine"], a:"GABA and Galanin", e:"The VLPO uses inhibitory neurotransmitters like GABA and galanin to quiet down the brain's waking centers, helping us fall asleep."},
+{q:"What specific heart condition can develop over time from chronic oxygen drops caused by obstructive sleep apnea?", o:["Left ventricular atrophy","Pulmonary Hypertension and right heart strain","Coronary arterial thinning","Mitral valve prolapse avoidance"], a:"Pulmonary Hypertension and right heart strain", e:"Repeated oxygen drops trigger constriction in the lungs' blood vessels, leading to pulmonary hypertension and right ventricular strain."},
+{q:"How does sleep loss change the brain's emotional pathways, particularly the connection between the prefrontal cortex and the amygdala?", o:["It tightens connections for better logic","It disconnects them, causing emotional volatility","It completely turns off the amygdala","It shifts emotional memory storage to the skull bones"], a:"It disconnects them, causing emotional volatility", e:"Sleep deprivation weakens the regulatory link between the prefrontal cortex and the amygdala, resulting in overreactions to negative triggers."},
+{q:"What structural change happens to astrocytes during deep slow-wave sleep to support the brain's cleaning process?", o:["They swell up to block fluid flow","They shrink to open up the brain's interstitial spaces","They transform into myelin coatings","They duplicate rapidly through cell division"], a:"They shrink to open up the brain's interstitial spaces", e:"Astrocytes shrink their volume by roughly 60% during deep NREM sleep, widening channels for cerebrospinal fluid to clear out metabolic waste."},
+{q:"Which specific condition involves a structural breakdown of the gut lining due to chronic sleep loss?", o:["Achlorhydria","Increased intestinal permeability (leaky gut)","Acute esophageal structural collapse","Pancreatic duct atrophy"], a:"Increased intestinal permeability (leaky gut)", e:"Chronic sleep deprivation weakens the tight junctions of the bowel wall, contributing to leaky gut syndrome and body-wide inflammation."},
+{q:"What specific change in brainwaves is seen on an EEG during Stage 2 sleep to protect the brain from being disturbed by external noises?", o:["Constant Delta waves","K-Complexes and Sleep Spindles","Continuous high-voltage Beta bursts","Sudden Alpha drops"], a:"K-Complexes and Sleep Spindles", e:"K-complexes and sleep spindles work to isolate the cortical areas from outside noise, keeping your sleep stable during Stage 2."},
+{q:"How does chronic sleep loss alter the HPA axis, and what are the long-term results?", o:["It dampens the axis, lowering morning adrenaline","It over-activates the axis, elevating nocturnal cortisol","It turns off hormone pathways completely","It redirects hormone traffic away from the kidneys"], a:"It over-activates the axis, elevating nocturnal cortisol", e:"Sleep debt keeps the HPA axis hyper-active, keeping cortisol high at night and disrupting metabolic health, blood sugar, and mood regulation."},
+{q:"What biochemical shift occurs when adenosine binds to its $A_1$ receptors in the brain's arousal systems?", o:["It triggers a cyclic AMP surge","It inhibits adenylate cyclase, lowering cell activity","It opens voltage-gated calcium channels","It causes an instant rush of dopamine"], a:"It inhibits adenylate cyclase, lowering cell activity", e:"Adenosine binding to $A_1$ receptors inhibits adenylate cyclase, reducing cyclic AMP levels and slowing down wake-promoting neurons."},
+{q:"Why do natural killer (NK) immune cell counts drop significantly after just one night of short sleep?", o:["Because bone marrow stops producing cells entirely","Because sleep loss suppresses key genetic transcription paths","Because the cells get trapped inside muscle tissue","Because excess melatonin breaks them down"], a:"Because sleep loss suppresses key genetic transcription paths", e:"Missing out on sleep disrupts the expression of key immune genes, crippling the production and deployment of natural killer cells."},
+{q:"What breathing change occurs during REM sleep because the brainstem's automatic controls become less active?", o:["Breathing becomes highly irregular and variable","Breathing becomes perfectly flat and steady","Breathing depends entirely on skeletal arm movements","Breathing stops for 10 minutes at a time"], a:"Breathing becomes highly irregular and variable", e:"In REM sleep, breathing patterns become erratic and irregular because automatic brainstem controls loosen, leaving respiratory rates highly variable."},
+{q:"Which nerve pathway carries inflammation signals from a stressed gut microbiome back to the brain during sleep loss?", o:["The Phrenic Nerve Array","The Vagus Nerve Axis","The Abducens Nerve Pathway","The Sciatic Nerve Network"], a:"The Vagus Nerve Axis", e:"The vagus nerve serves as a two-way communication line, carrying inflammatory signals from a disrupted gut back up to the brain."},
+{q:"What dangerous change in the blood vessels is directly accelerated by the high sympathetic tone caused by chronic sleep debt?", o:["Widespread thinning of capillary networks","Endothelial dysfunction and arterial stiffening","Spontaneous breakdown of red blood cells","Lowering of systemic clotting risks"], a:"Endothelial dysfunction and arterial stiffening", e:"Chronic sympathetic activation stresses the delicate lining of your arteries, causing endothelial damage and accelerating plaque buildup."},
+{q:"Which precise group of matching receptors is down-regulated in the brain following long-term, chronic sleep loss?", o:["Olfactory neural paths","Central $\text{GABA}_A$ and dopamine receptors","Vitamin D skin receptors","Peripheral insulin loops only"], a:"Central $\text{GABA}_A$ and dopamine receptors", e:"Chronic sleep deprivation reduces the sensitivity and availability of central $\text{GABA}_A$ and dopamine receptors, causing mood shifts and cognitive drop-offs."},
+{q:"What effect does a high-cortisol environment have on muscle proteins when sleep loss prevents normal tissue recovery?", o:["It triggers protein synthesis and growth","It drives protein catabolism and muscle breakdown","It turns muscle fibers into mineralized bone","It locks amino acids inside fat cells"], a:"It drives protein catabolism and muscle breakdown", e:"Without the growth hormone surge of deep sleep, high cortisol levels break down muscle proteins for energy, wasting lean tissue over time."},
+{q:"Which precise group of matching receptors is down-regulated in the brain following long-term, chronic sleep loss?", o:["Olfactory neural paths","Central $\text{GABA}_A$ and dopamine receptors","Vitamin D skin receptors","Peripheral insulin loops only"], a:"Central $\text{GABA}_A$ and dopamine receptors", e:"Chronic sleep deprivation reduces the sensitivity and availability of central $\text{GABA}_A$ and dopamine receptors, causing mood shifts and cognitive drop-offs."},
+{q:"What happens to the level of basic metabolic energy used by the brain during deep Stage 3 NREM sleep?", o:["It spikes by 200% over daytime levels","It drops to its lowest level, allowing recovery","It matches the energy used during a run","It shifts entirely to burning proteins"], a:"It drops to its lowest level, allowing recovery", e:"Brain metabolism drops significantly during deep Stage 3 sleep, giving neurons a chance to restore their energy balances."},
+{q:"What changes occur to the cells that build and maintain bones when human growth hormone drops due to poor sleep?", o:["Osteoclasts disappear entirely","Osteoblast activity drops while osteoclasts continue breaking down bone","Bones absorb calcium at double the normal speed","Cartilage turns into soft muscle tissue"], a:"Osteoblast activity drops while osteoclasts continue breaking down bone", e:"A drop in growth hormone impairs the bone-building osteoblasts, while bone-clearing osteoclasts keep working, gradually reducing bone density over time."},
+{q:"Which precise phase of sleep is most important for processing and balancing emotional memories?", o:["Stage 1 Light NREM Sleep","REM Sleep","Stage 4 Deep NREM Sleep","The waking grogginess phase"], a:"REM Sleep", e:"REM sleep provides a unique neurochemical environment (low noradrenaline) that allows the brain to process emotional memories without triggering a stress response."},
+{q:"What key genetic change occurs in blood cells during severe sleep restriction?", o:["DNA pairs dissolve completely","Down-regulation of genes that manage stress and immune response","Total conversion of white cells into red cells","Immunity to viral infections develops"], a:"Down-regulation of genes that manage stress and immune response", e:"Restricting sleep down-regulates hundreds of genes that control your immune system, stress response, and metabolic maintenance loops."},
+{q:"Why does missing out on sleep increase your risk for a heart attack in terms of blood clotting?", o:["By thinning the blood out too much","By elevating blood platelets and clotting factors","By destroying all fibrinogen strands","By lowering total arterial fluid pressure"], a:"By elevating blood platelets and clotting factors", e:"Sleep loss increases blood viscosity and raises levels of pro-inflammatory clotting factors, making dangerous blockages more likely to form."}
+]
+};
+
+let currentQuizItems = [];
+let currentItemIndex = 0;
+let runningScore = 0;
+let chosenLevel = "";
+
+/* FISHER-YATES SHUFFLE ALGORITHM FOR COMPLETE ATTRACT RANDOMIZATION */
+function shuffleArray(array) {
+for (let i = array.length - 1; i > 0; i--) {
+const j = Math.floor(Math.random() * (i + 1));
+[array[i], array[j]] = [array[j], array[i]];
+}
+return array;
+}
+
+function startQuiz(level){
+chosenLevel = level;
+runningScore = 0;
+currentItemIndex = 0;
+
+currentQuizItems = shuffleArray(JSON.parse(JSON.stringify(quizData[level])));
+
+document.getElementById('levelsMenu').style.display = 'none';
+document.getElementById('quizSubtitle').style.display = 'none';
+document.getElementById('quizBox').style.display = 'block';
+
+document.getElementById('currentLevelTag').innerText = 'Difficulty: ' + level.toUpperCase();
+
+loadQuizQuestion();
+}
+
+function loadQuizQuestion(){
+const currentQuestionObj = currentQuizItems[currentItemIndex];
+document.getElementById('scoreText').innerText = 'Score: ' + runningScore + ' / ' + currentItemIndex;
+document.getElementById('question').innerText = `Question ${currentItemIndex + 1} of 20: ${currentQuestionObj.q}`;
+
+const optionsContainer = document.getElementById('options');
+optionsContainer.innerHTML = '';
+
+let randomizedOptions = shuffleArray([...currentQuestionObj.o]);
+
+randomizedOptions.forEach(optionText => {
+optionsContainer.innerHTML += `
+<button class="option" onclick="evaluateSelection(this, '${optionText.replace(/'/g, "\\'")}')">
+${optionText}
+</button>
+`;
+});
+
+document.getElementById('feedback').innerHTML = '';
+document.getElementById('feedback').style.background = 'none';
+document.getElementById('nextBtn').style.display = 'none';
+}
+
+function evaluateSelection(clickedButton, selectedText){
+const currentQuestionObj = currentQuizItems[currentItemIndex];
+const feedbackArea = document.getElementById('feedback');
+
+const allOptions = document.querySelectorAll('.option');
+allOptions.forEach(btn => btn.disabled = true);
+
+if(selectedText === currentQuestionObj.a){
+runningScore++;
+feedbackArea.innerHTML = '✅ <strong>Correct Analytical Framework:</strong> ' + currentQuestionObj.e;
+feedbackArea.style.color = '#00ff88';
+feedbackArea.style.background = 'rgba(0,255,136,0.08)';
+clickedButton.style.background = '#00ff88';
+clickedButton.style.color = '#000';
+} else {
+feedbackArea.innerHTML = `❌ <strong>Incorrect Assessment (Correct Answer: ${currentQuestionObj.a}):</strong> ` + currentQuestionObj.e;
+feedbackArea.style.color = '#ff5f5f';
+feedbackArea.style.background = 'rgba(255,95,95,0.08)';
+clickedButton.style.background = '#ff4d4d';
+}
+
+document.getElementById('scoreText').innerText = 'Score: ' + runningScore + ' / ' + (currentItemIndex + 1);
+document.getElementById('nextBtn').style.display = 'inline-block';
+}
+
+function nextQuestion(){
+currentItemIndex++;
+if(currentItemIndex < 20 && currentItemIndex < currentQuizItems.length){
+loadQuizQuestion();
+} else {
+document.getElementById('question').innerText = 'Systemic Quiz Assessment Complete!';
+document.getElementById('options').innerHTML = '';
+document.getElementById('feedback').innerHTML = `<strong>Final Metrics Summary:</strong> You correctly identified <strong>${runningScore} out of 20</strong> physiology paradigms (${Math.round((runningScore/20)*100)}%).`;
+document.getElementById('feedback').style.color = '#00d4ff';
+document.getElementById('feedback').style.background = 'rgba(0,212,255,0.05)';
+document.getElementById('nextBtn').style.display = 'none';
+}
+}
+
+function exitQuiz(){
+document.getElementById('quizBox').style.display = 'none';
+document.getElementById('levelsMenu').style.display = 'flex';
+document.getElementById('quizSubtitle').style.display = 'block';
+currentQuizItems = [];
+currentItemIndex = 0;
+runningScore = 0;
+}
+</script>
+
+</body>
+</html>
